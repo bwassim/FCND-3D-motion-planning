@@ -10,20 +10,38 @@ I will explain step by step how the backyard flyer code works :
 The structure of the code of the motion planning is different from that of the backyard flyer in the following points:
 1. We have an additional `flight_state` consisting of the `PLANNING` state
 2. Therefore we added the condition on this new state in the state_callback function
-3. The waypoints does not constitute a box anymore. The path constructed using the A* algorithm is converted to actual waypoints. 
-4. The other functions remains the same 
-5. Plan_path is the function where most of the work will be done, since the main goal of this exercice is to find a way to go from point A to point B while avoiding obstacles. This is done through generating a path and then, as mentioned before, generate the minimum number of waypoint for the drone to follow. 
+3. The waypoints does not constitute a box anymore. The path constructed using the A* algorithm is converted to actual waypoints.
+4. The other functions remains the same
+5. Plan_path is the function where most of the work will be done, since the main goal of this exercice is to find a way to go from point A to point B while avoiding obstacles. This is done through generating a path and then, as mentioned before, generate the minimum number of waypoint for the drone to follow.
 6. After creating the grid and defining the offsets we use the A* algorithm to generate the waypoints that we send to the autopilot
-### Step 7: Write your planner
+
+
+
+### Implementing the Path Planning algorithm
+
+In the starter code, we assume that the home position is where the drone first initializes, but in reality you need to be able to start planning from anywhere.
+Modify your code to read the global home location from the first line of the `colliders.csv` file and set that position as global home `(self.set_home_position())`
+
+-----
+In the starter code, we assume the drone takes off from map center, but you'll need to be able to takeoff from anywhere.
+Retrieve your current position in geodetic coordinates from self._latitude, self._longitude and self._altitude.
+Then use the utility function global_to_local() to convert to local position (using self.global_home as well, which you just set)
+----
+
+
+
+
+
+### -
 
 Your planning algorithm is going to look something like the following:
 
 - Load the 2.5D map in the `colliders.csv` file describing the environment.
 - Discretize the environment into a grid or graph representation.
-- Define the start and goal locations. You can determine your home location from `self._latitude` and `self._longitude`. 
-- Perform a search using A* or other search algorithm. 
+- Define the start and goal locations. You can determine your home location from `self._latitude` and `self._longitude`.
+- Perform a search using A* or other search algorithm.
 - Use a collinearity test or ray tracing method (like Bresenham) to remove unnecessary waypoints.
-- Return waypoints in local ECEF coordinates (format for `self.all_waypoints` is [N, E, altitude, heading], where the drone’s start location corresponds to [0, 0, 0, 0]). 
+- Return waypoints in local ECEF coordinates (format for `self.all_waypoints` is [N, E, altitude, heading], where the drone’s start location corresponds to [0, 0, 0, 0]).
 
 Some of these steps are already implemented for you and some you need to modify or implement yourself.  See the [rubric](https://review.udacity.com/#!/rubrics/1534/view) for specifics on what you need to modify or implement.
 
@@ -52,7 +70,7 @@ wp2[3] = np.arctan2((wp2[1]-wp1[1]), (wp2[0]-wp1[0]))
 
 This may not be completely intuitive, but this will yield a yaw angle that is positive counterclockwise about a z-axis (down) axis that points downward.
 
-Put all of these together and make up your own crazy paths to fly! Can you fly a double helix?? 
+Put all of these together and make up your own crazy paths to fly! Can you fly a double helix??
 ![Double Helix](./misc/double_helix.gif)
 
 Ok flying a double helix might seem like a silly idea, but imagine you are an autonomous first responder vehicle. You need to first fly to a particular building or location, then fly a reconnaissance pattern to survey the scene! Give it a try!
