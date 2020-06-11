@@ -2,7 +2,7 @@ from enum import Enum
 from queue import PriorityQueue
 import numpy as np
 import csv
-# import re
+
 
 def create_grid(data, drone_altitude, safety_distance):
     """
@@ -21,8 +21,8 @@ def create_grid(data, drone_altitude, safety_distance):
 
     # given the minimum and maximum coordinates we can
     # calculate the size of the grid.
-    north_size = int(np.ceil(north_max - north_min))
-    east_size = int(np.ceil(east_max - east_min))
+    north_size = int(np.ceil(north_max - north_min + 1))
+    east_size = int(np.ceil(east_max - east_min + 1))
 
     # Initialize an empty grid
     grid = np.zeros((north_size, east_size))
@@ -103,19 +103,23 @@ def valid_actions(grid, current_node):
     return valid_actions
 
 
-def point(p):
-    return np.array([p[0], p[1], 1.]).reshape(1, -1)
 
-def collinearity_check(p1, p2, p3, epsilon=1e-6):   
-    m = np.concatenate((p1, p2, p3), 0)
-    det = np.linalg.det(m)
-    return abs(det) < epsilon
 
 
 # We're using collinearity here, but you could use Bresenham as well!
 def prune_path(path):
+    
+    def point(p):
+        return np.array([p[0], p[1], 1.]).reshape(1, -1)
+    
+
+    def collinearity_check(p1, p2, p3, epsilon=1e-2):   
+        m = np.concatenate((p1, p2, p3), 0)
+        det = np.linalg.det(m)
+        return abs(det) < epsilon
+
+
     pruned_path = [p for p in path]
-    # TODO: prune the path!
     
     i = 0
     while i < len(pruned_path) - 2:
@@ -154,10 +158,8 @@ def a_star(grid, h, start, goal):
     while not queue.empty():
         item = queue.get()
         current_node = item[1]
-        if current_node == start:
-            current_cost = 0.0
-        else:              
-            current_cost = branch[current_node][0]
+        current_cost = item[0]
+        
             
         if current_node == goal:        
             print('Found a path.')
