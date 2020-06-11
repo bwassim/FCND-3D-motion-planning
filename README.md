@@ -70,6 +70,13 @@ Write the search algorithm. Added the diagonal motions to the A* implementation,
 --------------------
 #### 6. 
 Cull waypoints from the path you determine using search.
+Collinearity was used for path prunning. As you can see in the above figure, two example are provided. The figurer on the right handside are the ones with pruned path.
 
 --------------
+
+#### Coming soon
+- Probabilistic roadmap with using graph
+- Receding horizon planning 
+- Potential field modification to the planner 
+- Try flying more complexe trajectories
 
