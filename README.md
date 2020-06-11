@@ -62,7 +62,8 @@ It is also necessary to update the `valid_actions` function[ line 94-101](https:
 
 Write the search algorithm. Added the diagonal motions to the A* implementation, and assigned them a cost of sqrt(2). See lines [59-62](https://github.com/bwassim/FCND-3D-motion-planning/blob/6c87d47ed6e77e30e42153c060aea450943fa6e4/grid_planning_utils.py#L59-L62) in [grid_planning_utils.py](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
 
-[alt text][path_planning_1]
+![alt text][path_planning_1]
+![alt text][path_planning_2]
 
 
 --------------------
