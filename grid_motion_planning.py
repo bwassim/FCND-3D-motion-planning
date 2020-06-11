@@ -172,7 +172,7 @@ class MotionPlanning(Drone):
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in pruned_path]
         # Set self.waypoints
         self.waypoints = waypoints
-        # TODO: send waypoints to sim (this is just for visualization of waypoints)
+        # send waypoints to sim (this is just for visualization of waypoints)
         self.send_waypoints()
 
     def start(self):
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     parser.add_argument("--goal_alt", type=float, default=5, help="Goal altitude")
     args = parser.parse_args()
 
-    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=60)
+    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=80)
     global_goal_position = np.array([args.goal_lon, args.goal_lat, args.goal_alt], dtype='Float64')
     drone = MotionPlanning(conn, global_goal_position=global_goal_position)
     time.sleep(1)

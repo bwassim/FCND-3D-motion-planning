@@ -38,7 +38,7 @@ The extracted values for the initial longitude and latitude are `lat0: 37.792480
 In the starter code, we assume the drone takes off from map center, but we need to be able to takeoff from anywhere. Retrieve the current position in geodetic coordinates from `self._latitude`, `self._longitude` and `self._altitude`.
 Then use the utility function `global_to_local()` to convert to local position (using `self.global_home` as well, which you just set)
 
-The current position in ECEF frame is retrieved using `self.global_position` and converted to NED local coordinates using the functino `global_to_local`
+The current position in ECEF frame is retrieved using `self.global_position` and converted to NED local coordinates using the function `global_to_local` See [line 133](https://github.com/bwassim/FCND-3D-motion-planning/blob/78c2f45001240e5feff7025a4228b050f71235ae/grid_motion_planning.py#L133)
 
 -------
 ####  3. Convert start position to current position
@@ -51,17 +51,17 @@ In the starter code, the goal position is hardcoded as some location 10 m north 
 
 Given the geodetic goal coordinates, the goal coordinates in the grid frame are given after converting to NED coordinates using the `global_to_local` function and taking into consideration the north and east offset. See line [156-158](https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_motion_planning.py#L156-L158)
 
-`Note`: The goal position are added in the parser and called as follows: 
+**Note**: The goal position are added in the parser and called as follows: 
 ```python
-python grid_motion_planning --goal_lat 37.795845 --goal_lon -122.401500 --goal_alt 10
+python grid_motion_planning.py --goal_lat 37.795845 --goal_lon -122.401500 --goal_alt 10
 
 ```
-
+It is also necessary to update the `valid_actions` function[ line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
 ------
 #### 5. Update the A* algorithm
 
 Write the search algorithm. Added the diagonal motions to the A* implementation, and assigned them a cost of sqrt(2). See lines [59-62](https://github.com/bwassim/FCND-3D-motion-planning/blob/6c87d47ed6e77e30e42153c060aea450943fa6e4/grid_planning_utils.py#L59-L62) in [grid_planning_utils.py](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
-It is also necessary to update the [valid_actions function line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
+
 
 --------------------
 #### 6. 
