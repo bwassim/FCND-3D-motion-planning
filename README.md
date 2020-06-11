@@ -54,13 +54,15 @@ Given the geodetic goal coordinates, the goal coordinates in the grid frame are 
 **Note**: The goal position are added in the parser and called as follows: 
 ```python
 python grid_motion_planning.py --goal_lat 37.795845 --goal_lon -122.401500 --goal_alt 10
-
 ```
-It is also necessary to update the `valid_actions` function[ line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
-------
+It is also necessary to update the `valid_actions` function[ line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/4ccd07e172a278b568f15cae60b5a1b5f13db630/grid_planning_utils.py#L94-L101) 
+
+--------
 #### 5. Update the A* algorithm
 
 Write the search algorithm. Added the diagonal motions to the A* implementation, and assigned them a cost of sqrt(2). See lines [59-62](https://github.com/bwassim/FCND-3D-motion-planning/blob/6c87d47ed6e77e30e42153c060aea450943fa6e4/grid_planning_utils.py#L59-L62) in [grid_planning_utils.py](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
+
+[alt text][path_planning_1]
 
 
 --------------------
