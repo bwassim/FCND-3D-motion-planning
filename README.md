@@ -5,8 +5,6 @@
 
 ###  Explain what's going on in  `motion_planning.py` and `planning_utils.py`
 
-I will explain step by step how the backyard flyer code works :
-
 The structure of the code of the motion planning is different from that of the backyard flyer in the following points:
 1. We have an additional `flight_state` consisting of the `PLANNING` state
 2. Therefore we added the condition on this new state in the state_callback function
@@ -19,8 +17,12 @@ The structure of the code of the motion planning is different from that of the b
 
 ### Implementing the Path Planning algorithm
 
+#### 1. Set the global home position
+
 In the starter code, we assume that the home position is where the drone first initializes, but in reality you need to be able to start planning from anywhere.
 Modify your code to read the global home location from the first line of the `colliders.csv` file and set that position as global home `(self.set_home_position())`
+
+The global home position is read in line https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_motion_planning.py#L127 using the function `read_csv` found in `grid_planning_utils` at https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_planning_utils.py#L201
 
 -----
 In the starter code, we assume the drone takes off from map center, but you'll need to be able to takeoff from anywhere. Retrieve your current position in geodetic coordinates from `self._latitude`, `self._longitude` and `self._altitude`.
