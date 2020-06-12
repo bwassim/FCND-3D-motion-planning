@@ -5,10 +5,10 @@
 
 - Load the 2.5D map in the `colliders.csv` file describing the environment.
 - Discretize the environment into a grid or graph representation.
-- Define the start and goal locations. You can determine your home location from `self._latitude` and `self._longitude`. 
-- Perform a search using A* or other search algorithm. 
+- Define the start and goal locations. You can determine your home location from `self._latitude` and `self._longitude`.
+- Perform a search using A* or other search algorithm.
 - Use a collinearity test or ray tracing method (like Bresenham) to remove unnecessary waypoints.
-- Return waypoints in local ECEF coordinates (format for `self.all_waypoints` is [N, E, altitude, heading], where the drone’s start location corresponds to [0, 0, 0, 0]). 
+- Return waypoints in local ECEF coordinates (format for `self.all_waypoints` is [N, E, altitude, heading], where the drone’s start location corresponds to [0, 0, 0, 0]).
 
 
 ###  Explain what's going on in  `motion_planning.py` and `planning_utils.py`
@@ -31,7 +31,7 @@ In the starter code, we assume that the home position is where the drone first i
 Modify your code to read the global home location from the first line of the `colliders.csv` file and set that position as global home `(self.set_home_position())`
 
 The global home position is read in [line 127](https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_motion_planning.py#L127) using the function `read_csv` found in `grid_planning_utils` at [line 201](https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_planning_utils.py#L201)
-The extracted values for the initial longitude and latitude are `lat0: 37.792480` and `lon0: -122.397450` 
+The extracted values for the initial longitude and latitude are `lat0: 37.792480` and `lon0: -122.397450`
 
 -----
 #### 2. Set local position
@@ -51,32 +51,32 @@ In the starter code, the goal position is hardcoded as some location 10 m north 
 
 Given the geodetic goal coordinates, the goal coordinates in the grid frame are given after converting to NED coordinates using the `global_to_local` function and taking into consideration the north and east offset. See line [156-158](https://github.com/bwassim/FCND-3D-motion-planning/blob/aa0d1bf3241b164c5bf343f427ba8f547a8c4728/grid_motion_planning.py#L156-L158)
 
-**Note**: The goal position are added in the parser and called as follows: 
+**Note**: The goal position are added in the parser and called as follows:
 ```python
 python grid_motion_planning.py --goal_lat 37.795845 --goal_lon -122.401500 --goal_alt 10
 ```
-It is also necessary to update the `valid_actions` function[ line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/4ccd07e172a278b568f15cae60b5a1b5f13db630/grid_planning_utils.py#L94-L101) 
+It is also necessary to update the `valid_actions` function[ line 94-101](https://github.com/bwassim/FCND-3D-motion-planning/blob/4ccd07e172a278b568f15cae60b5a1b5f13db630/grid_planning_utils.py#L94-L101)
 
 --------
 #### 5. Update the A* algorithm
 
-Write the search algorithm. Added the diagonal motions to the A* implementation, and assigned them a cost of sqrt(2). See lines [59-62](https://github.com/bwassim/FCND-3D-motion-planning/blob/6c87d47ed6e77e30e42153c060aea450943fa6e4/grid_planning_utils.py#L59-L62) in [grid_planning_utils.py](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py) 
+Write the search algorithm. Added the diagonal motions to the A* implementation, and assigned them a cost of sqrt(2). See lines [59-62](https://github.com/bwassim/FCND-3D-motion-planning/blob/6c87d47ed6e77e30e42153c060aea450943fa6e4/grid_planning_utils.py#L59-L62) in [grid_planning_utils.py](https://github.com/bwassim/FCND-3D-motion-planning/blob/master/grid_planning_utils.py)
 
-![planning A* with prunning ](./misc/path_planning_1.png)
+![planning A* with pruning ](./misc/path_planning_1.png)
 
 ![A* with pruning](./misc/path_planning_2.png)
 
 
 --------------------
-#### 6. 
+#### 6. Collinearity for path pruning
 Cull waypoints from the path you determine using search.
-Collinearity was used for path prunning. As you can see in the above figure, two example are provided. The figurer on the right handside are the ones with pruned path.
+Collinearity was used for path pruning. As you can see in the above figure, two example are provided. The figurer on the right handside are the ones with pruned path.
 
 --------------
 
 #### Coming soon
 - Probabilistic roadmap with using graph
-- Receding horizon planning 
-- Potential field modification to the planner 
+- Receding horizon planning
+- Potential field modification to the planner
 - Try flying more complexe trajectories
 
